@@ -1,5 +1,7 @@
+"use client";
 import { TWorkout } from "@/types/type";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface WorkoutCardProps {
@@ -8,8 +10,9 @@ interface WorkoutCardProps {
 
 const WorkoutCard = ({ workout }: WorkoutCardProps) => {
   return (
-    <article className="group w-full overflow-hidden rounded-2xl border border-white/[0.08] bg-[#15161b] text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-[#ccff00]/30 hover:shadow-xl">
+    <Link href={`/workouts/${workout.id}`} className="group block w-full overflow-hidden rounded-2xl border border-white/[0.08] bg-[#15161b] text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-[#ccff00]/30 hover:shadow-xl">
       {/* Workout Image */}
+
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#202126]">
         <Image
           src={workout.image}
@@ -18,7 +21,6 @@ const WorkoutCard = ({ workout }: WorkoutCardProps) => {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-
         {/* Difficulty Badge */}
         <span className="absolute right-3 top-3 rounded-full border border-white/10 bg-[#090a0c]/85 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
           {workout.difficulty}
@@ -101,7 +103,7 @@ const WorkoutCard = ({ workout }: WorkoutCardProps) => {
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 };
 

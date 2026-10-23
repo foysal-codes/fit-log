@@ -2,18 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useWorkouts } from "@/context/WorkoutProvider";
 
 import Logo from "@/assets/logo.png";
 
 const Navbar = () => {
-  const [activeLink, setActiveLink] = useState("/workouts");
-
-  const planCount = 0;
-  const savedCount = 0;
+  const pathname = usePathname();
+  const { todaysPlan, savedWorkouts } = useWorkouts();
 
   const links = [
-    { name: "Workouts", href: "/workouts" },
+    { name: "Workout", href: "/workouts" },
     { name: "My Plan", href: "/my-plan" },
   ];
 
@@ -46,10 +45,9 @@ const Navbar = () => {
             <Link
               key={link.href}
               href={link.href}
-              onClick={() => setActiveLink(link.href)}
-              aria-current={activeLink === link.href ? "page" : undefined}
+              aria-current={pathname === link.href ? "page" : undefined}
               className={`rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 ${
-                activeLink === link.href
+                pathname === link.href
                   ? "bg-[#1c2300] text-[#ccff00]"
                   : "text-[#a1a1aa] hover:bg-white/[0.06] hover:text-white"
               }`}
@@ -69,19 +67,19 @@ const Navbar = () => {
             <span>Plan</span>
 
             <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#ccff00] px-1.5 text-xs font-bold leading-none text-black">
-              {planCount}
+              {todaysPlan.length}
             </span>
           </Link>
 
           {/* Saved Badge */}
           <Link
-            href="/saved"
+            href="/my-plan"
             className="flex items-center gap-2 text-sm font-medium text-[#a1a1aa] transition-colors hover:text-white"
           >
             <span>Saved</span>
 
             <span className="flex h-5 min-w-5 items-center justify-center rounded-full border border-[#414149] px-1.5 text-xs font-medium leading-none text-[#d4d4d8]">
-              {savedCount}
+              {savedWorkouts.length}
             </span>
           </Link>
         </div>
@@ -93,10 +91,9 @@ const Navbar = () => {
           <Link
             key={link.href}
             href={link.href}
-            onClick={() => setActiveLink(link.href)}
-            aria-current={activeLink === link.href ? "page" : undefined}
+            aria-current={pathname === link.href ? "page" : undefined}
             className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-              activeLink === link.href
+              pathname === link.href
                 ? "bg-[#1c2300] text-[#ccff00]"
                 : "text-[#a1a1aa] hover:bg-white/[0.06] hover:text-white"
             }`}
